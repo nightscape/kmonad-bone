@@ -1,0 +1,226 @@
+(defcfg
+  ;; For Linux (set your device input file here)
+  ;; input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  ;; output (uinput-sink "KMonad output"
+  ;;  "/bin/sleep 1 && /bin/setxkbmap us -option compose:ralt")
+
+  ;; For Windows
+  ;; input  (low-level-hook)
+  ;; output (send-event-sink)
+
+  ;; For MacOS
+  input  (iokit-name)
+  output (kext)
+
+  ;; Comment this is you want unhandled events not to be emitted
+  fallthrough true
+
+  ;; Set this to false to disable any command-execution in KMonad
+  allow-cmd false
+)
+
+(defsrc
+             f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv        1    2    3    4    5    6    7    8    9    0    -    =
+  tab        q    w    e    r    t    y    u    i    o    p    [    ]
+  caps       a    s    d    f    g    h    j    k    l    ;    '    \ ret
+  lsft  grv  z    x    c    v    b    n    m    ,    .    /    rsft up
+  1   lctl  lalt lmet           spc            rmet ralt      left down rght
+)
+
+(deflayer level1
+             _    _    _    _    _    _    _    _    _    _    _    _
+  _          1    2    3    4    5    6    7    8    9    0    -    =
+  tab        j    d    u    a    x    p    h    l    m    w    ß    rctl
+  @lv3       @cs  @t3  @i4  e    o    b    n    @r4  @s3  @gs  q    @lv3 ret
+  @lv2 _     f    v    @ü   @ä   @ö   @y   @z   ,    .    k    @lv2 _
+  @fn  lctl  @alt lmet          spc             @lv4 ralt      _    _    _
+)
+
+(deflayer level2
+              S-f1 S-f2 S-f3 S-f4 S-f5 S-f6 S-f7 S-f8 S-f9 S-f10 S-f11 S-f12
+;;grv         °    §    ℓ    »    «    $    €    „    “    ”     —     ¸
+  _           !    "    §    $    %    &    /    \(   \)   =     ?     rctl
+  S-tab       J    D    U    A    X    P    H    L    M    W     ẞ     ´
+  @lv5        C    T    I    E    O    B    N    R    S    G     Q     @lv5 S-ret
+  XX   _      F    V    Ü    Ä    Ö    S-@y S-@z    -    •    K  XX    S-up
+  @fn  lctl   lalt S-lmet         spc           S-@lv4 ralt      S-left S-down S-rght
+)
+
+(deflayer level3
+             A-f1 A-f2 A-f3 A-f4 A-f5 A-f6 A-f7 A-f8 A-f9 A-f10 A-f11 A-f12
+  _          ¹    ²    ³    ›    ‹    ¢    ¥    ‚    ‘    ’    _    _
+  _          @…   @\_  @[   @]   @^   @!   @<   @>   @=   @&   @€   /
+  XX         @bsl @/   @{   @}   @*   @?   @kau @kzu @-   @:   @@   XX A-ret
+  @lv5 _     @#   @$   @|   @~   @`   @+   @%   @dqu @'   @;   @lv5 M-up
+  _    _     _    _              _              @lv6 _    M-left M-down M-right
+)
+
+(deflayer level4
+            M-f1 M-f2 M-f3 M-f4 M-f5 M-f6 M-f7 M-f8 M-f9 M-f10 M-f11 M-f12
+  _         ¹    ²    ³    ›    ‹    ¢    ¥    ‚    ‘    ’    _    _
+  _         pgup bspc up   del  pgdn _    7    8    9    +    -    rctl
+  lalt      home lft  down rght end  _    4    5    6    ,    .    ralt M-ret
+  lsft XX   esc  tab  ins  ret  f1   :    1    2    3    ;    rsft _
+  _    _    _    _              0              XX   _    _    _    _
+)
+
+#| --------------------------------------------------------------------------
+(deflayer level5
+            _    _    _    _    _    _    _    _    _    _    _    _
+  _         ₁    ₂    ₃    ♀    ♂    ⚥    ϰ    ⟨    ⟩    ₀    ‑    _
+  _         ξ    _    λ    χ    ω    κ    ψ    γ    φ    ϕ    ς    _
+  _         ϱ    ι    α    ε    ο    σ    ν    ρ    τ    δ    υ    _   _
+  _   XX    _    ϵ    η    π    ζ    β    μ    ϱ    ϑ    θ    _    _
+  _   _     _    _              _              _    _    _    _    _
+)
+
+(deflayer level6
+            _    _    _    _    _    _    _    _    _    _    _    _
+  _         ¬    ∨    ∧    ⊥    ∡    ∥    →    ∞    _    ∅    ­    ¯
+  _         Ξ    √    Λ    ℂ    Ω    ×    Ψ    Γ    Φ    ℚ    _    ˘
+  _         ⊂    ∫    ∀    ∃    ∈    Σ    ℕ    ℝ    ∂    Δ    ∇    _  _
+  _   XX    ∪    ∩    ℵ    Π    ℤ    ⇐    ⇔    ⇒    ↦    Θ    _    _
+  _   _     _     _              _              _    _    _    _    _
+)
+  -------------------------------------------------------------------------- |#
+(deflayer level5
+            _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _  _
+  _   XX    _    _    _    _    _    _    _    _    _    _    _    _
+  _   _     _    _              _              _    _    _    _    _
+)
+
+(deflayer level6
+            _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _  _
+  _   XX    _    _    _    _    _    _    _    _    _    _    _    _
+  _   _     _    _              _              _    _    _    _    _
+)
+
+(deflayer alt
+             _    _    _    _    _    _    _    _    _    _    _    _
+  A-grv      1    2    3    4    5    6    7    8    9    0    -    =
+  A-tab      A-j  A-d  A-u  A-a  A-x  A-p  h    A-l  A-m  A-w  ß    rctl
+  _          A-c  A-t  A-i  A-e  A-o  A-b  A-n  A-r  A-s  A-g  A-q  @lv3 ret
+  _    _     A-f  A-v  A-ü  A-ä  A-ö  A-y  A-z  A-,  A-.  A-k    @lv2 _
+  @fn  lctl  @alt lmet          spc             @lv4 ralt      _    _    _
+)
+(deflayer qwertz
+           _    _    _    _    _    _    _    _    _    _    _    _
+  _        1    2    3    4    5    6    7    8    9    0    ß    apos
+  tab      q    w    e    r    t    z    u    i    o    p    ü    +
+  @q3      a    s    d    f    g    h    j    k    l    ö    ä    #  ret
+  lsft <   y    x    c    v    b    n    m    ,    .    -    rsft up
+  @fn lctl lalt lmet           spc            rmet ralt left down rght
+)
+
+(deflayer qwertz3
+           _    _    _    _    _    @neo _    _    _    _    _    _
+  XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX  XX   XX   XX        XX                  XX   XX   XX   XX   XX
+)
+
+;; (deflayer second_function
+;;        brdn brup lp   mctl bldn blup prev pp   next mute vold volu
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   @fn  _    _    _              _              _    _    _    _
+;; )
+
+(defalias
+  fn f
+  ;; Switch to QWERTZ layout (and back)
+  qwe (layer-switch qwertz) ;; Set qwertz as the base layer
+  neo (layer-switch level1) ;; Set neo level1 as the base layer
+
+  q3 (layer-toggle qwertz3)
+
+  ;; Bind lvX to a button that switches to a layer
+  lv2 (layer-toggle level2)
+  lv3 (layer-toggle level3)
+  lv4 (layer-toggle level4)
+  lv5 (layer-toggle level5)
+  lv6 (layer-toggle level6)
+  alt (layer-toggle alt)
+)
+
+(defalias
+  ;; aliases for German QWERTZ
+  ;; When I want to have the thing on the left,
+  ;; I would have to type at the position of the thing on the right
+  ;; on the defsrc (US layout)
+  ä '
+  ö ;
+  ü [
+  ß -
+
+  y z
+  z y
+
+  … RA-.
+  @ RA-l
+  % S-5
+  { RA-8
+  } RA-9
+  ^ ^
+  ! S-1
+  < `
+  > S-`
+  = S-0
+  & S-6
+  € RA-e
+
+  | RA-7
+  ` #(S-= space)
+  kau S-8
+  kzu S-9
+  * S-]
+  ? S--
+  / S-7
+  : S-.
+  - /
+  bsl A-S-7
+  \_ S-/
+  → #(rctl @- @>)
+
+  # \
+  [ RA-5
+  ] RA-6
+  ~ RA-n
+  $ S-4
+  + ]
+  dqu S-2
+  ' S-\
+  \ RA-min
+  ; S-,
+)
+
+(defalias
+  gs (tap-hold-next-release 500 g rsft)
+  aw (tap-hold-next-release 500 a lmet)
+  ec (tap-hold-next-release 500 e lctl)
+  i4 (tap-hold-next-release 500 i @lv4)
+  j2 (tap-hold-next-release 500 j @lv2)
+  s3 (tap-hold-next-release 500 s @lv3)
+  ,3 (tap-hold-next-release 500 , @lv3)
+
+  t3  (tap-hold-next-release 500 t @lv3)
+  wa  (tap-hold-next-release 500 w lalt)
+  r4  (tap-hold-next-release 500 r @lv4)
+  rc  (tap-hold-next-release 500 r rctl)
+  nw  (tap-hold-next-release 500 n rmet)
+  cs  (tap-hold-next-release 500 c lsft)
+
+  ;; ralt = compose key when tapped, rctl when held down
+  ctlc (tap-hold-next-release 500 ralt rctl)
+)
